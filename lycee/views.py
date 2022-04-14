@@ -16,7 +16,10 @@ def index(request):
     result_list = Cursus.objects.order_by('name')
 
     template = loader.get_template('lycee/index.html')
-
+    context = {
+        'liste' : result_list,
+    }
+    return HttpResponse(template.render(context, request))
 def detail_student(request,student_id):
     result_list = Student.objects.get(pk=student_id)
     context = {'liste' : result_list}
@@ -29,3 +32,9 @@ class StudentCreateView(CreateView):
 
     def get_success_url(self):
         return reverse("detail_student", args=(self.object.pk,))
+
+def detail_cursus(request,cursus_id):
+    c = Cursus.objects.get(pk=cursus_id)
+    c.student_set.all().get(id=5)
+    context = {'liste':c}
+    return render (request, 'lycee/cursus/detail_cursus.html', context)

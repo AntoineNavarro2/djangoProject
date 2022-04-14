@@ -19,9 +19,10 @@ from lycee import views
 from lycee.views import StudentCreateView
 
 urlpatterns = [
+    path('', views.index),
     path('admin/', admin.site.urls),
-    path('lycee', views.index, name="index"),
-    path('lycee/<int:cursus_id>', views.detail, name='detail'),
+    path('lycee', views.index, name='index'),
     path('lycee/student/<int:student_id>', views.detail_student, name='detail_student'),
-    path('lycee/student/create', StudentCreateView.as_view(), name='create_student')
+    path('lycee/student/create', StudentCreateView.as_view(), name='create_student'),
+    path('lycee/cursus/<int:cursus_id>', views.detail_cursus, name='detail_cursus')
 ]
