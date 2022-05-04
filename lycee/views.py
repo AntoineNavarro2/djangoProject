@@ -35,6 +35,12 @@ class StudentCreateView(CreateView):
 
 def detail_cursus(request,cursus_id):
     c = Cursus.objects.get(pk=cursus_id)
-    c.student_set.all().get(id=5)
-    context = {'liste':c}
+    students = c.student_set.all()
+    result_list = {}
+    x = 0
+    for student in students:
+        print(student.first_name,student.last_name)
+        result_list [x] = student.first_name + ' ' + student.last_name
+        x+=1
+    context = {'liste':result_list}
     return render (request, 'lycee/cursus/detail_cursus.html', context)
