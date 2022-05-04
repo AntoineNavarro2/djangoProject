@@ -25,6 +25,7 @@ class Cursus(models.Model):
         verbose_name_plural = 'Cursus'
     def __str__(self):
         return '{} {}: {}'.format(self.name,self.year_from_bac,self.scholar_year)
+
 class Student(models.Model):
     first_name = models.CharField(
         max_length=50,
@@ -41,26 +42,7 @@ class Student(models.Model):
         help_text="last name of the student",
         blank=False, # pas de champ vide
         null=False, # pas de champ null (a conjuguer avec default
-        default="???",
-        max_length=255, # taille maximale du champ
-)
-class Student(models.Model):
-    first_name = models.CharField(
-        max_length=50,
-        blank=False,
-        null=False
-)
-    birth_date = models.DateField(
-        verbose_name='date of birth',
-        blank=False,
-        null=True
-)
-    last_name = models.CharField(
-        verbose_name="lastname",
-        help_text="last name of the student",
-        blank=False, # pas de champ vide
-        null=False, # pas de champ null (a conjuguer avec default
-        default="???",
+        default="??",
         max_length=255, # taille maximale du champ
 )
     phone = models.CharField(
@@ -68,7 +50,7 @@ class Student(models.Model):
         help_text="phone number of the student",
         blank=False, # pas de champ vide
         null=False, # pas de champ null (a conjuguer avec default
-        default="0999999999",
+        default="0123456789",
         max_length=10, # taille maximale du champ
 )
     email = models.EmailField(
@@ -92,3 +74,32 @@ class Student(models.Model):
         on_delete=models.CASCADE, # necessaire selon la version de Django
         null=True
 )
+    def __str__(self):
+        return '{} {}: {}'.format(self.first_name,self.last_name,self.id)
+class Presence(models.Model):
+    reason = models.CharField(
+        verbose_name="Reason",
+        help_text="reason of missing",
+        max_length= 80,
+        blank=False,
+        null=False
+    )
+    isMissing = models.BooleanField(
+        verbose_name="isMissing",
+        null=False,
+        blank=False,
+        help_text="The student is missing or no"
+    )
+    date = models.DateTimeField(
+        verbose_name="Date  ",
+        null=False,
+        blank=False,
+        help_text="Date of the missing",
+        unique=True,
+    )
+    student = models.ForeignKey(
+        Student,
+        on_delete=models.CASCADE,
+        null=False,
+        blank=False
+    )

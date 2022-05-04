@@ -8,14 +8,18 @@
     <div class="container">
         {% for cursus in liste %}
           <div class='row'>
-            <div class='col-sm-2'>
+            <div class='col-sm-4'>
             <a href="lycee/cursus/{{ cursus.id }}">{{ cursus.name }}</a>
+            <button type="button" class="btn btn-warning" >Call of roll</button>
              </div>
           </div>
         {% endfor %}
+    <button type="button" class="btn btn-danger"><a href={% url 'create_presence' %}>Particular Call of roll</a></button>
+    <button class="btn btn-primary"><a href={% url 'create_student' %}>Create a student</a></button>
     <div class="container">
         <div class="container">
          <div class='row'>
+
         </div>
       </div>
     </div>

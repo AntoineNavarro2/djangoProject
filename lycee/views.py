@@ -2,15 +2,17 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Cursus, Student
+from .models import Cursus, Student, Presence
 from django.template import loader
 from django.views.generic.edit import CreateView
-from .forms import StudentForm
+from .forms import StudentForm, PresenceParticularForm
 from django.urls import reverse
 
 def detail(request,cursus_id):
     resp = 'result for cursus {}'.format(cursus_id)
     return HttpResponse(resp)
+
+
 
 def index(request):
     result_list = Cursus.objects.order_by('name')
@@ -25,6 +27,11 @@ def detail_student(request,student_id):
     context = {'liste' : result_list}
     return render (request, 'lycee/student/detail_student.html', context)
 
+def detail_presence(request,presence_id):
+    result_list = Presence.objects.get(pk=presence_id)
+    context = {'liste' : result_list}
+    return render (request, 'lycee/presence/detail_presence.html', context)
+
 class StudentCreateView(CreateView):
     model = Student
     form_class = StudentForm
@@ -32,6 +39,15 @@ class StudentCreateView(CreateView):
 
     def get_success_url(self):
         return reverse("detail_student", args=(self.object.pk,))
+
+
+class CallOfRollCreateView(CreateView):
+    model = Presence
+    form_class = PresenceParticularForm
+    template_name = 'lycee/presence/create.html'
+
+    def get_success_url(self):
+        return reverse("detail_presence", args=(self.object.pk,))
 
 def detail_cursus(request,cursus_id):
     c = Cursus.objects.get(pk=cursus_id)
@@ -44,3 +60,5 @@ def detail_cursus(request,cursus_id):
         x+=1
     context = {'liste':result_list}
     return render (request, 'lycee/cursus/detail_cursus.html', context)
+
+
