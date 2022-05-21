@@ -16,15 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from lycee import views
-from lycee.views import StudentCreateView, CallOfRollCreateView
+from lycee.views import StudentCreateView, ParticularCallCreateView
 
 urlpatterns = [
     path('', views.index),
     path('admin/', admin.site.urls),
-    path('lycee', views.index, name='index'),
+    path('lycee/', views.index, name='home'),
     path('lycee/student/<int:student_id>', views.detail_student, name='detail_student'),
+    path('lycee/student/update/<int:student_id>', views.update_student, name='update_student'),
     path('lycee/presence/<int:presence_id>', views.detail_presence, name='detail_presence'),
     path('lycee/student/create', StudentCreateView.as_view(), name='create_student'),
-    path('lycee/presence/create', CallOfRollCreateView.as_view(), name='create_presence'),
-    path('lycee/cursus/<int:cursus_id>', views.detail_cursus, name='detail_cursus')
+    path('lycee/presence/call', ParticularCallCreateView.as_view(), name='create_presence_part'),
+    path('lycee/presence/curususcall/<int:cursus_id>', views.cursus_call, name='create_presence'),
+    path('lycee/cursus/<int:cursus_id>', views.detail_cursus, name='detail_cursus'),
+    path('lycee/presence/', views.detail_all_presence, name='detail_all_presence'),
 ]

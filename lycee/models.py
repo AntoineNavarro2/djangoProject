@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 # Create your models here.
 class Cursus(models.Model):
@@ -88,18 +89,29 @@ class Presence(models.Model):
         verbose_name="isMissing",
         null=False,
         blank=False,
-        help_text="The student is missing or no"
+        help_text="The student is missing or no",
+        default = True
     )
     date = models.DateTimeField(
-        verbose_name="Date  ",
-        null=False,
+        verbose_name='Date of Student Missing',
+        default=datetime.now(),
         blank=False,
-        help_text="Date of the missing",
-        unique=True,
+        null=False
     )
+    start_time = models.TimeField(
+        help_text="Start of the missing",
+        default="00:00"
+
+    )
+    stop_time = models.TimeField(
+        help_text="End of the missing",
+        default="00:00"
+
+    )
+
     student = models.ForeignKey(
         Student,
-        on_delete=models.CASCADE,
-        null=False,
-        blank=False
+        related_name="Student",
+        on_delete=models.CASCADE,  # necessaire selon la version de Django
+        null=False
     )

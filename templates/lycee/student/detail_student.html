@@ -9,12 +9,15 @@
     {% block content %}
         <div class="container">
             <div class="row">
-                <div class="col-sm-2">
+                <div class="col-sm-5">
                     <h3>{{ liste.first_name }} {{ liste.last_name }}</h3>
                     <li>{{ liste.birth_date }}</li>
                     <li>{{ liste.phone }}</li>
                     <li>{{ liste.email|lower }}</li>
                     <li>{{ liste.cursus }}</li>
+                    <button>
+                        <a href="update/{{ liste.id }}">Edit Student data</a>
+                    </button>
                 </div>
             </div>
         </div>

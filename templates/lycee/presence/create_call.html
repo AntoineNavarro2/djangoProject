@@ -1,11 +1,14 @@
 {% extends 'master.html' %}
  {% block title %}
-        create a new particular call of roll
+        create a call of roll
+     {% for cursus in liste %}
+    <h3>{{ cursus.name }}</h3>
+     {% endfor %}
     {% endblock %}
 
 {% block content %}
-
     <form method='post'>
+
     {% csrf_token %}
     {{ form.as_p }}
         <div class="boutons">
@@ -13,4 +16,5 @@
             <button class="button radius success right" type="submit">Submit</button>
         </div>
     </form>
+
 {% endblock %}

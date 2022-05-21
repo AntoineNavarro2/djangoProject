@@ -1,5 +1,6 @@
 from django.forms.models import ModelForm
 from .models import Student, Presence
+from django import forms
 
 class StudentForm(ModelForm):
 
@@ -28,4 +29,14 @@ class PresenceParticularForm(ModelForm):
             "isMissing",
             "student",
             "date",
+            'start_time',
+            'stop_time',
         )
+class PresenceForm(forms.Form):
+
+    date = forms.DateInput()
+
+    choices = forms.MultipleChoiceField(
+        widget=forms.CheckboxSelectMultiple,
+    )
+
